@@ -53,15 +53,15 @@
                     <button class=" btn btn-success float-right" type="button" name="backbtn"><a class="text-decoration-none text-dark" href="index.php">Retour à la liste</a></button>
                     <div class="form-group">
                         <label for="titre">Saisir le titre :</label>
-                        <input type="text" required class="form-control" id="titre" name="titre" placeholder="Entrer le titre..." value="<?= $ancienTitre ?>">
+                        <input type="text" required class="form-control" id="titre" name="titre" value="<?= @$ancienTitre ?>">
                     </div>
                     <div class="form-group">
                         <label for="description">Saisir la description :</label>
-                        <textarea class="form-control" id="description" name="description" required rows="6" placeholder="Saisir une description..."><?= $ancienneDescrip ?></textarea>
+                        <textarea class="form-control" id="description" name="description" required rows="6" ><?= @$ancienneDescrip ?></textarea>
                     </div>
                     <div class="form-group">
                         <label for="date">Saisir une date :</label>
-                        <input type="date" min="1970-01-01" max='<?php echo date('Y-m-d'); ?>' required class="form-control" id="date" name="date" placeholder="Saisir une date..." value="<?= $ancienneDate ?>">
+                        <input type="date" min="1970-01-01" max='<?php echo date('Y-m-d'); ?>' required class="form-control" id="date" name="date"  value="<?= @$ancienneDate ?>">
                     </div>
                     <button class=" btn btn-success" type="submit" name="button">SAUVEGARDER</button>
                 </form>

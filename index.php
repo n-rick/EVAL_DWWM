@@ -35,6 +35,7 @@
                 $date[] = $row[3];
                 $id[] = $row[0];
             }
+            $result->closeCursor();
         } catch (Exception $e) {
             die('Erreur : ' . $e->getMessage());
         }
