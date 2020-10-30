@@ -15,36 +15,35 @@
 
         <?php
 
-        @$ancienTitre = $_GET['titre'];
-        @$ancienneDescrip = $_GET['description'];
-        @$ancienneDate = $_GET['date'];
+            @$ancienTitre = $_GET['title'];
+            @$ancienneDescrip = $_GET['description'];
+            @$ancienneDate = $_GET['date'];
 
-        if ($_POST) {
-            try {
-                require_once("db.php");
-                $cnx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $cnx->exec("SET NAMES 'UTF8';");
+            if ($_POST) {
+                try {
+                    require_once("db.php");
+                    $cnx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $cnx->exec("SET NAMES 'UTF8';");
 
-                $id = $_GET['id'];
-                $titre = $_POST['titre'];
-                $description = $_POST['description'];
-                $date = $_POST['date'];
+                    $id = $_GET['id'];
+                    $titre = $_POST['titre'];
 
-                $resultat = $cnx->prepare('UPDATE posts SET post_title = :title, description = :description, post_at = :date WHERE Id = :id');
-                $resultat->bindParam(':id', $id);
-                $resultat->bindParam(':title', $titre);
-                $resultat->bindParam(':description', $description);
-                $resultat->bindParam(':date', $date);
+                    $description = $_POST['description'];
+                    $date = $_POST['date'];
 
-                $resultat->execute();
+                    $resultat = $cnx->prepare('UPDATE posts SET post_title = :title, description = :description, post_at = :date WHERE Id = :id');
+                    $resultat->bindParam(':id', $id);
+                    $resultat->bindParam(':title', $titre);
+                    $resultat->bindParam(':description', $description);
+                    $resultat->bindParam(':date', $date);
 
+                    $resultat->execute();
 
-                header('location:index.php');
-            } catch (Exception $ex) {
-                die('Erreur : ' . $ex->getMessage());
+                    header('location:index.php');
+                } catch (Exception $ex) {
+                    die('Erreur : ' . $ex->getMessage());
+                }
             }
-        }
-
         ?>
         <div class="container">
             <h2> MODIFIER L'ARTICLE</h2>
@@ -53,15 +52,15 @@
                     <button class=" btn btn-success float-right" type="button" name="backbtn"><a class="text-decoration-none text-dark" href="index.php">Retour à la liste</a></button>
                     <div class="form-group">
                         <label for="titre">Saisir le titre :</label>
-                        <input type="text" required class="form-control" id="titre" name="titre" value="<?= @$ancienTitre ?>">
+                        <input type="text" required class="form-control" id="titre" name="titre" value="<?=$ancienTitre?>">
                     </div>
                     <div class="form-group">
                         <label for="description">Saisir la description :</label>
-                        <textarea class="form-control" id="description" name="description" required rows="6" ><?= @$ancienneDescrip ?></textarea>
+                        <textarea class="form-control" id="description" name="description" required rows="6" ><?=$ancienneDescrip?></textarea>
                     </div>
                     <div class="form-group">
                         <label for="date">Saisir une date :</label>
-                        <input type="date" min="1970-01-01" max='<?php echo date('Y-m-d'); ?>' required class="form-control" id="date" name="date"  value="<?= @$ancienneDate ?>">
+                        <input type="date" min="1970-01-01" max='<?php echo date('Y-m-d'); ?>' required class="form-control" id="date" name="date"  value="<?=$ancienneDate?>">
                     </div>
                     <button class=" btn btn-success" type="submit" name="button">SAUVEGARDER</button>
                 </form>

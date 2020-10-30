@@ -16,29 +16,33 @@
         <!-- PARTIE PHP-->
         <?php
         echo "<div><h1 class='d-flex justify-content-center alert alert-dark text-dark'>EVAL DWMM2 - Enrick FICADIERE</h1></div>";
-        
+        @$ancienTitre = $_GET['title'];
+        @$ancienneDescrip = $_GET['description'];
+        @$ancienneDate = $_GET['date'];
+
         try {
-            require_once("db.php");
-            $cnx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $cnx->exec("SET NAMES 'utf8';");
+                require_once("db.php");
+                $cnx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $cnx->exec("SET NAMES 'utf8';");
 
-            $result = $cnx->query('SELECT * FROM posts');
-            $rows = $result->fetchAll();
-            $titre = [];
-            $description = [];
-            $date = [];
-            $id = [];
+                $result = $cnx->query('SELECT * FROM posts');
+                $rows = $result->fetchAll();
+                $titre = [];
+                $description = [];
+                $date = [];
+                $id = [];
 
-            foreach ($rows as $row) {
-                $titre[] = $row[1];
-                $description[] = $row[2];
-                $date[] = $row[3];
-                $id[] = $row[0];
+                foreach ($rows as $row) {
+                    $titre[] = $row[1];
+                    $description[] = $row[2];
+                    $date[] = $row[3];
+                    $id[] = $row[0];
+                }
+                $result->closeCursor();
+            } catch (Exception $e) {
+                die('Erreur : ' . $e->getMessage());
             }
-            $result->closeCursor();
-        } catch (Exception $e) {
-            die('Erreur : ' . $e->getMessage());
-        }
+
         echo "<br />";
 
         // IMPLEMENTATION DE LA BDD DANS UN TALBEAU
@@ -56,8 +60,8 @@
             <th scope="row">' . $titre[$i] . '</th>
             <td>' . $description[$i] . '</td>
             <td>' . $date[$i] . '</td>
-            <td class=" d-flex justify-content-center"> <a href="delete.php?id='.$id[$i].'"><img src="./crud-icon/delete.png" alt="image de suppression"></a>
-            <a href="edit.php?id='.$id[$i].'"><img src="crud-icon/edit.png" alt="image d\'édition"></a> </td>
+            <td class=" d-flex justify-content-center"> <a href="delete.php?id='.$id[$i]. '"><img src="./crud-icon/delete.png" alt="image de suppression"></a>
+            <a href="edit.php?id=' . $id[$i] . '&title=' . $titre[$i] . '&description=' . $description[$i] . '&date=' . $date[$i] . '"><img src="crud-icon/edit.png" alt="image d\'édition"></a> </td>
         </tr>';
             }
             $table .= '</thead></table></div>';
